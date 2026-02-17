@@ -14,8 +14,10 @@
     "framer-motion": "^12.34.0",
     "gsap": "^3.14.2",
     "next": "16.1.6",
+    "node-fetch": "^3.3.2",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "spotify-web-api-node": "^5.0.2",
     "three": "^0.182.0"
   },
   "devDependencies": {
