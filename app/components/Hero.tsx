@@ -7,7 +7,7 @@ export default function Hero() {
   const name = "Sansita Malhotra";
 
   return (
-    <section className="min-h-screen bg-white flex flex-col items-center justify-center relative">
+    <section className="min-h-screen bg-white flex flex-col items-center justify-center relative pt-24">
       
       <div className="flex flex-col md:flex-row items-center gap-16">
         
