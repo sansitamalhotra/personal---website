@@ -1,5 +1,9 @@
-import Terminal from './components/Terminal';
+import Hero from './components/Hero';
 
 export default function Home() {
-  return <Terminal />;
+  return (
+    <main>
+      <Hero />
+    </main>
+  );
 }
