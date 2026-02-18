@@ -17,6 +17,7 @@
     "node-fetch": "^3.3.2",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "react-parallax-tilt": "^1.7.319",
     "spotify-web-api-node": "^5.0.2",
     "three": "^0.182.0"
   },

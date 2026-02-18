@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import Tilt from 'react-parallax-tilt';
 
 export default function Hero() {
   const name = "Sansita Malhotra";
@@ -52,23 +53,30 @@ export default function Hero() {
           </motion.p>
         </div>
 
-        {/* Right - Photo */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.5, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          whileHover={{ rotate: 2, scale: 1.03 }}
-          className="relative w-64 h-64 md:w-80 md:h-80 rounded-2xl overflow-hidden shadow-2xl cursor-pointer"
-          style={{ border: '3px solid #7eb8d4' }}
-        >
-          <Image
-  src="/images/me.jpg"
-  alt="Sansita Malhotra"
-  fill
-  sizes="(max-width: 768px) 256px, 320px"
-  className="object-cover"
-/>
-        </motion.div>
+{/* Right - Photo */}
+<Tilt
+  tiltMaxAngleX={10}
+  tiltMaxAngleY={10}
+  scale={1.05}
+  transitionSpeed={2000}
+>
+  <motion.div
+    initial={{ opacity: 0, scale: 0.8 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ delay: 0.5, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+    whileHover={{ rotate: 2, scale: 1.03 }}
+    className="relative w-64 h-64 md:w-80 md:h-80 rounded-2xl overflow-hidden shadow-2xl cursor-pointer"
+    style={{ border: '3px solid #7eb8d4' }}
+  >
+    <Image
+      src="/images/me.jpg"
+      alt="Sansita Malhotra"
+      fill
+      sizes="(max-width: 768px) 256px, 320px"
+      className="object-cover"
+    />
+  </motion.div>
+</Tilt>
 
       </div>
 

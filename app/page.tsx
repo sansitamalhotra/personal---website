@@ -3,6 +3,8 @@ import Navbar from './components/Navbar';
 import SpotifyNowPlaying from './components/SpotifyNowPlaying';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
+import CursorTrail from './components/CursorTrail';
+import PixelMe from './components/PixelMe';
 
 export default function Home() {
   return (
@@ -12,6 +14,8 @@ export default function Home() {
       <Hero />
       <Projects />
       <Contact />
+      <CursorTrail />
+        <PixelMe />
     </main>
   );
-}
+} 
