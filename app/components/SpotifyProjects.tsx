@@ -4,66 +4,126 @@ import { motion } from 'framer-motion';
 import Tilt from 'react-parallax-tilt';
 import Image from 'next/image';
 import { useTheme } from '../context/ThemeContext';
+import { useState } from 'react';
+import ProjectModal from './ProjectModal';
 
 const projects = [
   {
     title: "GigIT",
-    description: "KYC verification platform using Face++ API with 85% accuracy. Won 1st place at NewHacks 2025.",
-    tech: ["React", "Node.js", "MongoDB", "Face++"],
+    description: "KYC verification platform for gig economy workers using Face++ API.",
+    longDescription: "GigIT revolutionizes identity verification for the gig economy by combining Face++ facial recognition with document validation. Built for gig workers who need fast, reliable KYC verification, the platform achieved 85% accuracy in identity validation while processing verification requests in under 60 seconds. Won 1st place at NewHacks 2025 out of 200+ competing teams.",
+    tech: ["React", "Node.js", "MongoDB", "Face++ API", "Express.js", "JWT Auth"],
     plays: "85,234",
     duration: "3 tracks",
     color: "#1DB954",
     cover: "/images/gigit-cover.png",
+    github: "https://github.com/sansitamalhotra/GigIT.git",
+    achievements: [
+      "🏆 1st Place Winner at NewHacks 2025",
+      "85% accuracy in KYC verification",
+      "Processed 1000+ test verifications",
+      "60-second average verification time"
+    ],
   },
   {
     title: "SafetyNet HER",
-    description: "AI-powered crisis response system for women built at DeltaHacks 12.",
-    tech: ["React Native", "OpenAI", "Firebase"],
+    description: "AI-powered crisis response system for women's safety with community-first approach.",
+    longDescription: "SafetyNet HER is a comprehensive crisis response platform that puts community support before police escalation. Using Google Gemini AI for threat triage, the system analyzes incoming SMS messages to classify 12+ incident types, score urgency (1-10), and recommend appropriate response. Features include a production-ready fake call escape system with AI-generated voice scripts, real-time volunteer mesh network coordination, and predictive risk intelligence. Built at DeltaHacks 12 to address the gap in preventive safety tools for women.",
+    tech: ["React", "TypeScript", "Node.js", "Google Gemini API", "MongoDB", "Twilio", "Socket.io"],
     plays: "42,891",
     duration: "4 tracks",
     color: "#ff6b9d",
     cover: "/images/safetynet-cover.png",
+    github: "https://github.com/sansitamalhotra/SafetyNet-HER.git",
+    achievements: [
+      "92% accuracy in AI threat classification",
+      "4.2 minute average response time (4x faster than 911)",
+      "Real-time volunteer dispatch system",
+      "Fake call escape feature with AI voice generation",
+      "Built production-ready features in 36 hours"
+    ],
   },
   {
     title: "Schema Sync",
-    description: "AI data integration tool achieving 92% field match accuracy.",
-    tech: ["Python", "TensorFlow", "PostgreSQL"],
+    description: "AI-powered data integration tool using SBERT embeddings for intelligent field matching.",
+    longDescription: "Schema Sync solves the critical problem of data integration across disparate systems by using SBERT (Sentence-BERT) embeddings to intelligently match database fields. The system achieved 92% accuracy in field matching by analyzing semantic similarity rather than relying on exact name matches. Built with Python and TensorFlow, it dramatically reduces manual data mapping effort and enables seamless integration between legacy systems and modern databases. Won Top 10 at Hack the Valley X.",
+    tech: ["Python", "TensorFlow", "PostgreSQL", "SBERT", "FastAPI", "NumPy"],
     plays: "38,456",
     duration: "5 tracks",
     color: "#ffd93d",
     cover: "/images/schemasync-cover.png",
+    github: "https://github.com/sansitamalhotra/SchemaSync.git",
+    achievements: [
+      "92% field match accuracy using SBERT embeddings",
+      "Top 10 finish at Hack the Valley X",
+      "Semantic similarity analysis outperformed rule-based matching",
+      "Reduced manual data mapping time by 75%"
+    ],
+    screenshots: ["/images/schema-sync-ss.jpg"],
   },
   {
     title: "CodeCrush",
-    description: "Gamified coding interview preparation platform.",
-    tech: ["Next.js", "TypeScript", "Vercel"],
+    description: "Gamified coding interview preparation platform designed to reduce anxiety and build confidence.",
+    longDescription: "CodeCrush reimagines technical interview preparation by focusing on learning psychology rather than just problem volume. Unlike traditional platforms that can feel intimidating, CodeCrush uses spaced repetition, guided learning paths, and encouraging feedback to help students build genuine confidence. The platform features 50+ curated DSA problems, progress tracking with visual streaks, and a non-judgmental environment that normalizes struggle as part of the learning process. Built with React and Firebase, it has helped 20+ beta users prepare for technical interviews with reduced anxiety.",
+    tech: ["React", "TypeScript", "Firebase", "Tailwind CSS", "Vercel"],
     plays: "29,123",
     duration: "6 tracks",
     color: "#6bcf7f",
     cover: "/images/codecrush-cover.png",
+    github: "https://github.com/sansitamalhotra/codecrush.git",
+    demo: "https://mycodecrush.vercel.app",
+    achievements: [
+      "50+ curated DSA problems with guided learning paths",
+      "20+ beta users with positive feedback",
+      "Spaced repetition system for long-term retention",
+      "Anxiety-reducing UI design focused on encouragement"
+    ],
   },
   {
     title: "PillPal",
-    description: "Smart Medication Management System.",
-    tech: ["Next.js", "TypeScript", "Vercel"],
+    description: "Smart medication management system with intelligent reminders and tracking.",
+    longDescription: "PillPal is a comprehensive medication management platform designed to help users track prescriptions, set intelligent reminders, and maintain medication adherence. Built with Next.js and TypeScript, the system features an intuitive interface for managing multiple medications, dosage tracking, and refill notifications. The platform aims to reduce medication errors and improve health outcomes through smart automation.",
+    tech: ["Next.js", "TypeScript", "Tailwind CSS", "Vercel"],
     plays: "18,456",
     duration: "4 tracks",
     color: "#89CFF0",
     cover: "/images/pillpal-cover.png",
+    github: "https://github.com/sansitamalhotra/PillPal.git",
+    achievements: [
+      "Smart reminder system with customizable schedules",
+      "Multi-medication tracking interface",
+      "Refill notifications to prevent gaps in medication"
+    ],
   },
   {
     title: "Bharatnatyam",
-    description: "Classical Indian dance performances.",
-    tech: ["Dance", "Performance", "Cultural Arts"],
+    description: "Classical Indian dance performances exploring storytelling through movement and expression.",
+    longDescription: "Over 10 years of training and performing Bharatnatyam, a classical Indian dance form that tells stories through intricate footwork, hand gestures (mudras), and facial expressions. My performances blend traditional techniques with contemporary interpretations, bringing ancient stories to modern audiences. Dance has taught me discipline, attention to detail, and the importance of practice—skills that directly translate to my approach to software engineering.",
+    tech: ["Dance", "Performance", "Cultural Arts", "Storytelling"],
     plays: "15,678",
     duration: "8 performances",
     color: "#c06c84",
     cover: "/images/dance-cover.png",
+    type: "performance",
+    demo: "https://www.youtube.com/playlist?list=PLLimH7k5Uz4r76VnGrpFRlEk9ZFYXSsX3", 
+    achievements: [
+      "10+ years of classical training",
+      "Multiple stage performances",
+      "Blend of traditional and contemporary styles",
+      "Storytelling through movement and expression"
+    ],
   },
 ];
 
 export default function SpotifyProjects() {
   const { theme } = useTheme();
+  const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleProjectClick = (project: typeof projects[0]) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
 
   return (
     <div className={`px-8 py-12 min-h-screen transition-colors duration-300 ${
@@ -96,6 +156,7 @@ export default function SpotifyProjects() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
+              onClick={() => handleProjectClick(project)}
               className={`p-4 rounded-lg transition-all cursor-pointer group ${
                 theme === 'dark'
                   ? 'bg-gray-800/50 hover:bg-gray-800'
@@ -157,7 +218,7 @@ export default function SpotifyProjects() {
               🏆 Hackathon Wins
             </h3>
             <p className={`text-sm ${theme === 'dark' ? 'text-white/80' : 'text-green-800'}`}>
-              GigIT, SafetyNet HER
+              GigIT, SafetyNet HER, Schema Sync
             </p>
           </div>
           
@@ -175,6 +236,13 @@ export default function SpotifyProjects() {
           </div>
         </div>
       </div>
+
+      {/* Project Modal */}
+      <ProjectModal
+        project={selectedProject}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 }
