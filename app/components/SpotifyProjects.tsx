@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import Tilt from 'react-parallax-tilt';
 import Image from 'next/image';
 import { useTheme } from '../context/ThemeContext';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import ProjectModal from './ProjectModal';
 
 const projects = [
@@ -24,7 +24,7 @@ const projects = [
       "Processed 1000+ test verifications",
       "60-second average verification time"
     ],
-     screenshots: [
+    screenshots: [
       "/screenshots-GigIT/landing.jpg",
       "/screenshots-GigIT/application.jpg",
       "/screenshots-GigIT/bank-login.jpg",
@@ -49,12 +49,12 @@ const projects = [
       "Built production-ready features in 36 hours"
     ],
     screenshots: [
-  "/ss/landingpage.png",
-  "/ss/fakecall.png",
-  "/ss/fakecall_part2.PNG", 
-  "/ss/ai-analysis.png",
-  "/ss/volunteerscreen.png"
-],
+      "/ss/landingpage.png",
+      "/ss/fakecall.png",
+      "/ss/fakecall_part2.PNG", 
+      "/ss/ai-analysis.png",
+      "/ss/volunteerscreen.png"
+    ],
   },
   {
     title: "Schema Sync",
@@ -96,7 +96,7 @@ const projects = [
       "Spaced repetition system for long-term retention",
       "Anxiety-reducing UI design focused on encouragement"
     ],
-     screenshots: [
+    screenshots: [
       "/screenshots-codecrush/home.png",
       "/screenshots-codecrush/dashboard.png",
       "/screenshots-codecrush/problem.png",
@@ -114,26 +114,25 @@ const projects = [
     color: "#89CFF0",
     cover: "/images/pillpal-cover.png",
     github: "https://github.com/sansitamalhotra/PillPal.git",
-    demo: "https://youtu.be/IA-yJRzk594"    ,
+    demo: "https://youtu.be/IA-yJRzk594",
     achievements: [
       "Smart reminder system with customizable schedules",
       "Multi-medication tracking interface",
       "Refill notifications to prevent gaps in medication"
     ],
     screenshots: [
-    "/screenshots-PillPal/Screenshot 2026-02-15 at 10.01.58 AM.png",
-    "/screenshots-PillPal/Screenshot 2026-02-15 at 10.02.19 AM.png",
-    "/screenshots-PillPal/Screenshot 2026-02-15 at 10.04.17 AM.png",
-    "/screenshots-PillPal/Screenshot 2026-02-15 at 10.05.19 AM.png",
-    "/screenshots-PillPal/Screenshot 2026-02-15 at 10.05.42 AM.png",
-    "/screenshots-PillPal/Screenshot 2026-02-15 at 10.05.51 AM.png",
-    "/screenshots-PillPal/Screenshot 2026-02-15 at 10.06.11 AM.png",
-    "/screenshots-PillPal/Screenshot 2026-02-15 at 10.06.19 AM.png",
-    "/screenshots-PillPal/Screenshot 2026-02-15 at 10.06.43 AM.png",
-    "/screenshots-PillPal/Screenshot 2026-02-15 at 10.07.20 AM.png",
-    "/screenshots-PillPal/Screenshot 2026-02-15 at 10.07.35 AM.png",
-    "/screenshots-PillPal/Screenshot 2026-02-15 at 10.07.46 AM.png"
-      
+      "/screenshots-PillPal/Screenshot 2026-02-15 at 10.01.58 AM.png",
+      "/screenshots-PillPal/Screenshot 2026-02-15 at 10.02.19 AM.png",
+      "/screenshots-PillPal/Screenshot 2026-02-15 at 10.04.17 AM.png",
+      "/screenshots-PillPal/Screenshot 2026-02-15 at 10.05.19 AM.png",
+      "/screenshots-PillPal/Screenshot 2026-02-15 at 10.05.42 AM.png",
+      "/screenshots-PillPal/Screenshot 2026-02-15 at 10.05.51 AM.png",
+      "/screenshots-PillPal/Screenshot 2026-02-15 at 10.06.11 AM.png",
+      "/screenshots-PillPal/Screenshot 2026-02-15 at 10.06.19 AM.png",
+      "/screenshots-PillPal/Screenshot 2026-02-15 at 10.06.43 AM.png",
+      "/screenshots-PillPal/Screenshot 2026-02-15 at 10.07.20 AM.png",
+      "/screenshots-PillPal/Screenshot 2026-02-15 at 10.07.35 AM.png",
+      "/screenshots-PillPal/Screenshot 2026-02-15 at 10.07.46 AM.png"
     ],
   },
   {
@@ -160,10 +159,63 @@ export default function SpotifyProjects() {
   const { theme } = useTheme();
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Auto-scroll animation
+  useEffect(() => {
+    const scrollContainer = scrollRef.current;
+    if (!scrollContainer) return;
+
+    let scrollInterval: NodeJS.Timeout;
+    let isUserScrolling = false;
+
+    const startAutoScroll = () => {
+      scrollInterval = setInterval(() => {
+        if (!isUserScrolling && scrollContainer) {
+          scrollContainer.scrollLeft += 1;
+          
+          // Reset to start when reaching the end for infinite loop
+          if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth / 2) {
+            scrollContainer.scrollLeft = 0;
+          }
+        }
+      }, 10); // Adjust speed here (lower = faster)
+    };
+
+    // Pause auto-scroll when user interacts
+    const handleUserScroll = () => {
+      isUserScrolling = true;
+      clearInterval(scrollInterval);
+      
+      setTimeout(() => {
+        isUserScrolling = false;
+        startAutoScroll();
+      }, 2000); // Resume after 2 seconds of no interaction
+    };
+
+    scrollContainer.addEventListener('wheel', handleUserScroll);
+    scrollContainer.addEventListener('touchstart', handleUserScroll);
+    scrollContainer.addEventListener('mousedown', handleUserScroll);
+
+    startAutoScroll();
+
+    return () => {
+      clearInterval(scrollInterval);
+      scrollContainer.removeEventListener('wheel', handleUserScroll);
+      scrollContainer.removeEventListener('touchstart', handleUserScroll);
+      scrollContainer.removeEventListener('mousedown', handleUserScroll);
+    };
+  }, []);
 
   const handleProjectClick = (project: typeof projects[0]) => {
     setSelectedProject(project);
     setIsModalOpen(true);
+  };
+
+  const scrollRight = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: 350, behavior: 'smooth' });
+    }
   };
 
   return (
@@ -173,111 +225,113 @@ export default function SpotifyProjects() {
         : 'bg-gradient-to-b from-blue-50 to-white'
     }`}>
       
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className={`text-4xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-          Projects
-        </h1>
-        <p className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>
-          My discography of building cool stuff 🚀
-        </p>
+      {/* Header with scroll arrow */}
+      <div className="mb-8 flex items-center justify-between">
+        <div>
+          <h1 className={`text-4xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+            Projects
+          </h1>
+          <p className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>
+            My discography of building cool stuff 🚀
+          </p>
+        </div>
+        <button 
+          onClick={scrollRight}
+          className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
+            theme === 'dark' 
+              ? 'bg-white/10 hover:bg-white/20 text-white' 
+              : 'bg-gray-200 hover:bg-gray-300 text-gray-900'
+          }`}
+        >
+          <span className="text-2xl">›</span>
+        </button>
       </div>
 
-      {/* Album Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-        {projects.map((project, index) => (
+      {/* Horizontal Scrolling Albums */}
+      <div 
+        ref={scrollRef}
+        className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide"
+        style={{
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+        }}
+      >
+        {/* Duplicate projects for infinite loop effect */}
+        {[...projects, ...projects].map((project, index) => (
           <Tilt
-            key={project.title}
+            key={`${project.title}-${index}`}
             tiltMaxAngleX={10}
             tiltMaxAngleY={10}
-            scale={1.05}
             transitionSpeed={2000}
           >
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ 
+                opacity: 1, 
+                x: 0,
+              }}
+              transition={{ 
+                delay: (index % projects.length) * 0.1, 
+                duration: 0.5 
+              }}
               onClick={() => handleProjectClick(project)}
-              className={`p-4 rounded-lg transition-all cursor-pointer group ${
-                theme === 'dark'
-                  ? 'bg-gray-800/50 hover:bg-gray-800'
-                  : 'bg-white hover:bg-blue-50 shadow-md hover:shadow-lg'
-              }`}
+              className="flex-shrink-0 w-[280px] cursor-pointer group"
             >
-             {/* Album Cover */}
-<div className="w-full aspect-square rounded-lg mb-4 shadow-xl overflow-hidden relative">
-  {project.cover ? (
-    <div className="relative w-full h-full group/album">
-      <Image
-        src={project.cover}
-        alt={project.title}
-        fill
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        className="object-cover transition-all duration-500 group-hover/album:scale-105 group-hover/album:rotate-3"
-      />
-    </div>
-  ) : (
-    <div 
-      className="w-full h-full flex items-center justify-center text-6xl"
-      style={{ backgroundColor: project.color }}
-    >
-      {project.title === "Bharatnatyam" ? "💃" : "💿"}
-    </div>
-  )}
-</div>
+              {/* Album Cover with Vinyl */}
+              <div className="relative w-full h-[280px] rounded-lg shadow-2xl overflow-hidden mb-4">
+                {/* Vinyl peeking out */}
+                <div className="absolute -left-8 top-1/2 -translate-y-1/2 w-[280px] h-[280px] rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 -z-10">
+                  <div 
+                    className="w-full h-full rounded-full relative"
+                    style={{ 
+                      backgroundColor: '#1a1a1a',
+                      animation: 'spin 3s linear infinite',
+                      border: '8px solid #2a2a2a'
+                    }}
+                  >
+                    <div className="absolute inset-4 rounded-full border-4 border-gray-700 opacity-50"></div>
+                    <div className="absolute inset-8 rounded-full border-4 border-gray-700 opacity-30"></div>
+                    <div 
+                      className="absolute inset-1/3 rounded-full flex items-center justify-center"
+                      style={{ backgroundColor: project.color }}
+                    >
+                      <div className="w-4 h-4 rounded-full bg-white"></div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Album Cover */}
+                <div className={`relative w-full h-full transition-all duration-500 group-hover:translate-x-8 ${
+                  theme === 'dark' ? 'bg-gray-800' : 'bg-white'
+                }`}>
+                  {project.cover && (
+                    <Image
+                      src={project.cover}
+                      alt={project.title}
+                      fill
+                      className="object-cover"
+                    />
+                  )}
+                  
+                  {/* Play button overlay */}
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center shadow-lg">
+                      <span className="text-black text-2xl ml-1">▶</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
               {/* Album Info */}
-              <h3 className={`font-semibold mb-1 truncate ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+              <h3 className={`font-semibold mb-1 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                 {project.title}
               </h3>
-              <p className={`text-sm mb-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+              <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                 {project.duration}
-              </p>
-
-              {/* Play Button - appears on hover */}
-              <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                <button className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
-                  <span className="text-black text-xl">▶</span>
-                </button>
-              </div>
+              </p>  
             </motion.div>
           </Tilt>
         ))}
-      </div>
-
-      {/* Add more sections */}
-      <div className="mt-16">
-        <h2 className={`text-2xl font-bold mb-6 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-          By Category
-        </h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className={`rounded-lg p-6 hover:scale-105 transition-transform cursor-pointer ${
-            theme === 'dark'
-              ? 'bg-gradient-to-r from-green-900 to-green-700'
-              : 'bg-gradient-to-r from-green-100 to-green-200'
-          }`}>
-            <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-green-900'}`}>
-              🏆 Hackathon Wins
-            </h3>
-            <p className={`text-sm ${theme === 'dark' ? 'text-white/80' : 'text-green-800'}`}>
-              GigIT
-            </p>
-          </div>
-          
-          <div className={`rounded-lg p-6 hover:scale-105 transition-transform cursor-pointer ${
-            theme === 'dark'
-              ? 'bg-gradient-to-r from-purple-900 to-purple-700'
-              : 'bg-gradient-to-r from-purple-100 to-purple-200'
-          }`}>
-            <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-purple-900'}`}>
-              🤖 AI/ML Projects
-            </h3>
-            <p className={`text-sm ${theme === 'dark' ? 'text-white/80' : 'text-purple-800'}`}>
-              Schema Sync, SafetyNet HER
-            </p>
-          </div>
-        </div>
       </div>
 
       {/* Project Modal */}

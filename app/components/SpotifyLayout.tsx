@@ -22,7 +22,9 @@ export default function SpotifyLayout({ children, onSectionChange, currentSectio
     }
   };
 
-  const bgColor = theme === 'dark' ? 'bg-black' : 'bg-gradient-to-br from-blue-50 to-white';
+ const bgColor = theme === 'dark' 
+  ? 'bg-gradient-to-br from-black via-gray-900 to-black animated-gradient' 
+  : 'bg-gradient-to-br from-blue-50 via-white to-blue-100 animated-gradient';
   const navBg = theme === 'dark' ? 'bg-gradient-to-b from-black to-transparent' : 'bg-gradient-to-b from-blue-50/80 to-transparent';
 
   return (

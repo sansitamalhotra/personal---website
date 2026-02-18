@@ -7,6 +7,7 @@ import SpotifyProjects from './components/SpotifyProjects';
 import SpotifyAbout from './components/SpotifyAbout';
 import SpotifyContact from './components/SpotifyContact';
 import SpotifyExperience from './components/SpotifyExperience';
+//import HorizontalProjects from './components/HorizontalProjects';
 
 export default function Home() {
   const [currentSection, setCurrentSection] = useState('home');
@@ -16,7 +17,7 @@ export default function Home() {
       case 'home':
         return <SpotifyHome />;
       case 'projects':
-        return <SpotifyProjects />;
+  return <SpotifyProjects />;
       case 'about':
         return <SpotifyAbout />;
       case 'contact':
