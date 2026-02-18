@@ -5,6 +5,8 @@ import Projects from './components/Projects';
 import Contact from './components/Contact';
 import CursorTrail from './components/CursorTrail';
 import PixelMe from './components/PixelMe';
+import FloatingBlobs from './components/FloatingBlobs';
+import About from './components/About';
 
 export default function Home() {
   return (
@@ -15,7 +17,9 @@ export default function Home() {
       <Projects />
       <Contact />
       <CursorTrail />
-        <PixelMe />
+      <PixelMe />
+      <About/>
+      <FloatingBlobs />
     </main>
   );
 } 
