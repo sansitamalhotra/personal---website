@@ -5,6 +5,7 @@ import SpotifySidebar from './SpotifySidebar';
 import SpotifyNowPlaying from './SpotifyNowPlaying';
 import { useTheme } from '../context/ThemeContext';
 import EqualizerBackground from './EqualizerBackground';
+import MusicNotes from './MusicNotes';
 
 interface SpotifyLayoutProps {
   children: ReactNode;
@@ -28,6 +29,7 @@ export default function SpotifyLayout({ children, onSectionChange, currentSectio
     <div className={`${bgColor} min-h-screen transition-colors duration-300 relative`}>
       {/* Equalizer Background */}
       <EqualizerBackground />
+      <MusicNotes />
       
       {/* Sidebar */}
       <SpotifySidebar 

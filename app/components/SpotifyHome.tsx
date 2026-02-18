@@ -60,28 +60,33 @@ export default function SpotifyHome() {
           </div>
         </motion.div>
 
-        {/* Action Buttons */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
-          className="flex items-center gap-4 mb-12"
-        >
-          <button className="w-14 h-14 bg-green-500 rounded-full flex items-center justify-center hover:scale-105 transition-transform shadow-xl">
-            <span className="text-2xl text-black">▶</span>
-          </button>
-          <button className={`px-6 py-2 border rounded-full transition-colors ${
-            theme === 'dark'
-              ? 'border-gray-600 text-white hover:border-white'
-              : 'border-gray-300 text-gray-700 hover:border-gray-900'
-          }`}>
-            View Resume
-          </button>
-          <button className={`text-2xl ${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-500 hover:text-gray-900'}`}>
-            ⋯
-          </button>
-        </motion.div>
-
+       {/* Action Buttons */}
+<motion.div
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ delay: 0.3, duration: 0.8 }}
+  className="flex items-center gap-4 mb-12"
+>
+  <button className="w-14 h-14 bg-green-500 rounded-full flex items-center justify-center hover:scale-105 transition-transform shadow-xl">
+    <span className="text-2xl text-black">▶</span>
+  </button>
+  
+  <a 
+    href="/resume.pdf" 
+    download="Sansita_Malhotra_Resume.pdf"
+    className={`px-6 py-2 border rounded-full transition-colors inline-block ${
+      theme === 'dark'
+        ? 'border-gray-600 text-white hover:border-white'
+        : 'border-gray-300 text-gray-700 hover:border-gray-900'
+    }`}
+  >
+    View Resume
+  </a>
+  
+  <button className={`text-2xl ${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-500 hover:text-gray-900'}`}>
+    ⋯
+  </button>
+</motion.div>
        {/* Quick Stats */}
 <motion.div
   initial={{ opacity: 0, y: 20 }}
