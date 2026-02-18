@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Tilt from 'react-parallax-tilt';
 import Image from 'next/image';
+import { useTheme } from '../context/ThemeContext';
 
 const projects = [
   {
@@ -14,7 +15,6 @@ const projects = [
     color: "#1DB954",
     cover: "/images/gigit-cover.png",
   },
-
   {
     title: "SafetyNet HER",
     description: "AI-powered crisis response system for women built at DeltaHacks 12.",
@@ -43,14 +43,14 @@ const projects = [
     cover: "/images/codecrush-cover.png",
   },
   {
-  title: "PillPal",
-  description: "Smart Medication Management System.",
-  tech: ["Next.js", "TypeScript", "Vercel"],
-  plays: "18,456",
-  duration: "4 tracks",
-  color: "#89CFF0",
-  cover: "/images/pillpal-cover.png", // you'll need to save the loading screen image here
-},
+    title: "PillPal",
+    description: "Smart Medication Management System.",
+    tech: ["Next.js", "TypeScript", "Vercel"],
+    plays: "18,456",
+    duration: "4 tracks",
+    color: "#89CFF0",
+    cover: "/images/pillpal-cover.png",
+  },
   {
     title: "Bharatnatyam",
     description: "Classical Indian dance performances.",
@@ -59,18 +59,27 @@ const projects = [
     duration: "8 performances",
     color: "#c06c84",
     cover: "/images/dance-cover.png",
-
   },
 ];
 
 export default function SpotifyProjects() {
+  const { theme } = useTheme();
+
   return (
-    <div className="px-8 py-12 bg-gradient-to-b from-black to-gray-900 min-h-screen">
+    <div className={`px-8 py-12 min-h-screen transition-colors duration-300 ${
+      theme === 'dark' 
+        ? 'bg-gradient-to-b from-black to-gray-900' 
+        : 'bg-gradient-to-b from-blue-50 to-white'
+    }`}>
       
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-4xl font-bold text-white mb-2">Projects</h1>
-        <p className="text-gray-400">My discography of building cool stuff 🚀</p>
+        <h1 className={`text-4xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+          Projects
+        </h1>
+        <p className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>
+          My discography of building cool stuff 🚀
+        </p>
       </div>
 
       {/* Album Grid */}
@@ -87,31 +96,39 @@ export default function SpotifyProjects() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
-              className="bg-gray-800/50 p-4 rounded-lg hover:bg-gray-800 transition-all cursor-pointer group"
+              className={`p-4 rounded-lg transition-all cursor-pointer group ${
+                theme === 'dark'
+                  ? 'bg-gray-800/50 hover:bg-gray-800'
+                  : 'bg-white hover:bg-blue-50 shadow-md hover:shadow-lg'
+              }`}
             >
-              {/* Album Cover - placeholder for now */}
+              {/* Album Cover */}
               <div className="w-full aspect-square rounded-lg mb-4 shadow-xl overflow-hidden relative">
-  {project.cover ? (
-    <Image
-      src={project.cover}
-      alt={project.title}
-      fill
-      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-      className="object-cover"
-    />
-  ) : (
-    <div 
-      className="w-full h-full flex items-center justify-center text-6xl"
-      style={{ backgroundColor: project.color }}
-    >
-      {project.title === "Bharatnatyam" ? "💃" : "💿"}
-    </div>
-  )}
-</div>
+                {project.cover ? (
+                  <Image
+                    src={project.cover}
+                    alt={project.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover"
+                  />
+                ) : (
+                  <div 
+                    className="w-full h-full flex items-center justify-center text-6xl"
+                    style={{ backgroundColor: project.color }}
+                  >
+                    {project.title === "Bharatnatyam" ? "💃" : "💿"}
+                  </div>
+                )}
+              </div>
 
               {/* Album Info */}
-              <h3 className="text-white font-semibold mb-1 truncate">{project.title}</h3>
-              <p className="text-sm text-gray-400 mb-2">{project.duration}</p>
+              <h3 className={`font-semibold mb-1 truncate ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                {project.title}
+              </h3>
+              <p className={`text-sm mb-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+                {project.duration}
+              </p>
 
               {/* Play Button - appears on hover */}
               <div className="opacity-0 group-hover:opacity-100 transition-opacity">
@@ -126,17 +143,35 @@ export default function SpotifyProjects() {
 
       {/* Add more sections */}
       <div className="mt-16">
-        <h2 className="text-2xl font-bold text-white mb-6">By Category</h2>
+        <h2 className={`text-2xl font-bold mb-6 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+          By Category
+        </h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="bg-gradient-to-r from-green-900 to-green-700 rounded-lg p-6 hover:scale-105 transition-transform cursor-pointer">
-            <h3 className="text-white text-xl font-bold mb-2">🏆 Hackathon Wins</h3>
-            <p className="text-white/80 text-sm">GigIT, SafetyNet HER</p>
+          <div className={`rounded-lg p-6 hover:scale-105 transition-transform cursor-pointer ${
+            theme === 'dark'
+              ? 'bg-gradient-to-r from-green-900 to-green-700'
+              : 'bg-gradient-to-r from-green-100 to-green-200'
+          }`}>
+            <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-green-900'}`}>
+              🏆 Hackathon Wins
+            </h3>
+            <p className={`text-sm ${theme === 'dark' ? 'text-white/80' : 'text-green-800'}`}>
+              GigIT, SafetyNet HER
+            </p>
           </div>
           
-          <div className="bg-gradient-to-r from-purple-900 to-purple-700 rounded-lg p-6 hover:scale-105 transition-transform cursor-pointer">
-            <h3 className="text-white text-xl font-bold mb-2">🤖 AI/ML Projects</h3>
-            <p className="text-white/80 text-sm">Schema Sync, SafetyNet HER</p>
+          <div className={`rounded-lg p-6 hover:scale-105 transition-transform cursor-pointer ${
+            theme === 'dark'
+              ? 'bg-gradient-to-r from-purple-900 to-purple-700'
+              : 'bg-gradient-to-r from-purple-100 to-purple-200'
+          }`}>
+            <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-purple-900'}`}>
+              🤖 AI/ML Projects
+            </h3>
+            <p className={`text-sm ${theme === 'dark' ? 'text-white/80' : 'text-purple-800'}`}>
+              Schema Sync, SafetyNet HER
+            </p>
           </div>
         </div>
       </div>

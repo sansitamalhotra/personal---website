@@ -2,13 +2,20 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { useTheme } from '../context/ThemeContext';
 
 export default function SpotifyHome() {
+  const { theme } = useTheme();
+
   return (
     <div className="relative min-h-screen">
       {/* Gradient Background */}
       <div 
-        className="absolute inset-0 bg-gradient-to-b from-purple-900 via-purple-900/50 to-black"
+        className={`absolute inset-0 ${
+          theme === 'dark'
+            ? 'bg-gradient-to-b from-purple-900 via-purple-900/50 to-black'
+            : 'bg-gradient-to-b from-blue-100 via-blue-50 to-white'
+        } transition-colors duration-300`}
         style={{ height: '400px' }}
       />
 
@@ -23,7 +30,9 @@ export default function SpotifyHome() {
           className="flex items-end gap-6 mb-8"
         >
           {/* Pixel Profile Pic */}
-          <div className="w-48 h-48 rounded-full overflow-hidden shadow-2xl bg-gray-800 flex-shrink-0">
+          <div className={`w-48 h-48 rounded-full overflow-hidden shadow-2xl flex-shrink-0 ${
+            theme === 'dark' ? 'bg-gray-800' : 'bg-white'
+          }`}>
             <Image
               src="/images/jukebox-removed.png"
               alt="Pixel Sansita"
@@ -35,10 +44,14 @@ export default function SpotifyHome() {
 
           {/* Profile Info */}
           <div className="pb-4">
-            <p className="text-sm font-semibold text-white mb-2">PORTFOLIO</p>
-            <h1 className="text-7xl font-bold text-white mb-4">Sansita Malhotra</h1>
-            <div className="flex items-center gap-2 text-sm text-white">
-              <span className="font-semibold">5 projects</span>
+            <p className={`text-sm font-semibold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-700'}`}>
+              PORTFOLIO
+            </p>
+            <h1 className={`text-7xl font-bold mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+              Sansita Malhotra
+            </h1>
+            <div className={`flex items-center gap-2 text-sm ${theme === 'dark' ? 'text-white' : 'text-gray-700'}`}>
+              <span className="font-semibold">6 projects</span>
               <span>•</span>
               <span>Computer Engineering @ UofT</span>
               <span>•</span>
@@ -57,10 +70,16 @@ export default function SpotifyHome() {
           <button className="w-14 h-14 bg-green-500 rounded-full flex items-center justify-center hover:scale-105 transition-transform shadow-xl">
             <span className="text-2xl text-black">▶</span>
           </button>
-          <button className="px-6 py-2 border border-gray-600 text-white rounded-full hover:border-white transition-colors">
+          <button className={`px-6 py-2 border rounded-full transition-colors ${
+            theme === 'dark'
+              ? 'border-gray-600 text-white hover:border-white'
+              : 'border-gray-300 text-gray-700 hover:border-gray-900'
+          }`}>
             View Resume
           </button>
-          <button className="text-gray-400 hover:text-white text-2xl">⋯</button>
+          <button className={`text-2xl ${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-500 hover:text-gray-900'}`}>
+            ⋯
+          </button>
         </motion.div>
 
         {/* Quick Stats */}
@@ -70,31 +89,36 @@ export default function SpotifyHome() {
           transition={{ delay: 0.5, duration: 0.8 }}
           className="grid grid-cols-4 gap-4 mb-12"
         >
-          <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 hover:bg-white/10 transition-colors">
-            <p className="text-3xl font-bold text-white mb-1">🏆</p>
-            <p className="text-2xl font-bold text-white">3</p>
-            <p className="text-sm text-gray-400">Hackathon Wins</p>
-          </div>
-          <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 hover:bg-white/10 transition-colors">
-            <p className="text-3xl font-bold text-white mb-1">⚡</p>
-            <p className="text-2xl font-bold text-white">250+</p>
-            <p className="text-sm text-gray-400">Daily Users</p>
-          </div>
-          <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 hover:bg-white/10 transition-colors">
-            <p className="text-3xl font-bold text-white mb-1">💃</p>
-            <p className="text-2xl font-bold text-white">10+</p>
-            <p className="text-sm text-gray-400">Dance Performances</p>
-          </div>
-          <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 hover:bg-white/10 transition-colors">
-            <p className="text-3xl font-bold text-white mb-1">💼</p>
-            <p className="text-2xl font-bold text-white">3+</p>
-            <p className="text-sm text-gray-400">Years Coding</p>
-          </div>
+          {[
+            { emoji: '🏆', num: '3', label: 'Hackathon Wins' },
+            { emoji: '⚡', num: '250+', label: 'Daily Users' },
+            { emoji: '💃', num: '10+', label: 'Dance Performances' },
+            { emoji: '💼', num: '3+', label: 'Years Coding' },
+          ].map((stat, i) => (
+            <div
+              key={i}
+              className={`rounded-lg p-4 transition-colors ${
+                theme === 'dark'
+                  ? 'bg-white/5 backdrop-blur-sm hover:bg-white/10'
+                  : 'bg-white shadow-md hover:shadow-lg'
+              }`}
+            >
+              <p className="text-3xl font-bold mb-1">{stat.emoji}</p>
+              <p className={`text-2xl font-bold mb-1 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                {stat.num}
+              </p>
+              <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+                {stat.label}
+              </p>
+            </div>
+          ))}
         </motion.div>
 
         {/* Popular Section */}
         <div className="mb-8">
-          <h2 className="text-2xl font-bold text-white mb-4">Popular</h2>
+          <h2 className={`text-2xl font-bold mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+            Popular
+          </h2>
           <div className="space-y-2">
             {[
               { name: 'GigIT', detail: 'KYC Verification Platform • NewHacks Winner', plays: '85K' },
@@ -107,15 +131,27 @@ export default function SpotifyHome() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.6 + index * 0.1, duration: 0.5 }}
-                className="flex items-center gap-4 px-4 py-3 rounded hover:bg-white/5 transition-colors group cursor-pointer"
+                className={`flex items-center gap-4 px-4 py-3 rounded transition-colors group cursor-pointer ${
+                  theme === 'dark' ? 'hover:bg-white/5' : 'hover:bg-blue-50'
+                }`}
               >
-                <span className="text-gray-400 w-4">{index + 1}</span>
+                <span className={theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}>{index + 1}</span>
                 <div className="flex-1">
-                  <p className="text-white font-medium">{project.name}</p>
-                  <p className="text-sm text-gray-400">{project.detail}</p>
+                  <p className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                    {project.name}
+                  </p>
+                  <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+                    {project.detail}
+                  </p>
                 </div>
-                <span className="text-gray-400 text-sm">{project.plays}</span>
-                <span className="text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity">▶</span>
+                <span className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
+                  {project.plays}
+                </span>
+                <span className={`opacity-0 group-hover:opacity-100 transition-opacity ${
+                  theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                }`}>
+                  ▶
+                </span>
               </motion.div>
             ))}
           </div>

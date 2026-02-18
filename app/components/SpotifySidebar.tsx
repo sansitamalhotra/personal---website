@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext';
 
 interface SpotifySidebarProps {
   activeSection: string;
@@ -8,6 +9,8 @@ interface SpotifySidebarProps {
 }
 
 export default function SpotifySidebar({ activeSection, onSectionChange }: SpotifySidebarProps) {
+  const { theme } = useTheme();
+  
   const navItems = [
     { id: 'home', icon: '🏠', label: 'Home' },
     { id: 'projects', icon: '📚', label: 'Projects' },
@@ -23,13 +26,13 @@ export default function SpotifySidebar({ activeSection, onSectionChange }: Spoti
   ];
 
   return (
-    <div className="fixed left-0 top-0 h-screen w-64 bg-black text-white flex flex-col">
+    <div className={`fixed left-0 top-0 h-screen w-64 ${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-gray-800 border-r border-gray-200'} flex flex-col transition-colors duration-300`}>
       
       {/* Logo */}
       <div className="p-6">
-        <h1 className="text-2xl font-bold" style={{ color: '#1DB954' }}>
-          sm.
-        </h1>
+       <h1 className="text-2xl font-bold" style={{ color: theme === 'dark' ? '#1DB954' : '#60a5fa' }}>
+  sansa
+</h1>
       </div>
 
       {/* Main Nav */}
@@ -41,8 +44,8 @@ export default function SpotifySidebar({ activeSection, onSectionChange }: Spoti
             whileHover={{ scale: 1.02 }}
             className={`w-full flex items-center gap-4 px-3 py-2 rounded-md transition-colors ${
               activeSection === item.id
-                ? 'bg-gray-800 text-white'
-                : 'text-gray-400 hover:text-white'
+                ? theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-blue-50 text-blue-600'
+                : theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'
             }`}
           >
             <span className="text-2xl">{item.icon}</span>
@@ -54,8 +57,8 @@ export default function SpotifySidebar({ activeSection, onSectionChange }: Spoti
       {/* Library Section */}
       <div className="mt-8 px-3 flex-1 overflow-auto">
         <div className="flex items-center justify-between mb-4 px-3">
-          <h2 className="text-gray-400 text-sm font-semibold">Your Library</h2>
-          <button className="text-gray-400 hover:text-white text-xl">+</button>
+          <h2 className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} text-sm font-semibold`}>Your Library</h2>
+          <button className={`${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'} text-xl`}>+</button>
         </div>
 
         <div className="space-y-2">
@@ -63,7 +66,7 @@ export default function SpotifySidebar({ activeSection, onSectionChange }: Spoti
             <motion.div
               key={index}
               onClick={() => onSectionChange(playlist.section)}
-              whileHover={{ backgroundColor: '#282828' }}
+              whileHover={{ backgroundColor: theme === 'dark' ? '#282828' : '#f3f4f6' }}
               className="flex items-center gap-3 px-3 py-2 rounded-md cursor-pointer"
             >
               <div 
@@ -73,8 +76,8 @@ export default function SpotifySidebar({ activeSection, onSectionChange }: Spoti
                 {playlist.icon}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-white text-sm font-medium truncate">{playlist.name}</p>
-                <p className="text-gray-400 text-xs">Playlist</p>
+                <p className={`${theme === 'dark' ? 'text-white' : 'text-gray-800'} text-sm font-medium truncate`}>{playlist.name}</p>
+                <p className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'} text-xs`}>Playlist</p>
               </div>
             </motion.div>
           ))}
@@ -82,7 +85,7 @@ export default function SpotifySidebar({ activeSection, onSectionChange }: Spoti
       </div>
 
       {/* Pixel character at bottom */}
-      <div className="p-4 border-t border-gray-800">
+      <div className={`p-4 border-t ${theme === 'dark' ? 'border-gray-800' : 'border-gray-200'}`}>
         <img src="/images/jukebox-removed.png" alt="Pixel Sansita" className="w-16 h-16 mx-auto object-contain" style={{ width: 'auto', height: '64px' }} />
       </div>
     </div>
