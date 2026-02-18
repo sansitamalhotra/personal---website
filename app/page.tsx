@@ -1,25 +1,35 @@
-import Hero from './components/Hero';
-import Navbar from './components/Navbar';
-import SpotifyNowPlaying from './components/SpotifyNowPlaying';
-import Projects from './components/Projects';
-import Contact from './components/Contact';
-import CursorTrail from './components/CursorTrail';
-import PixelMe from './components/PixelMe';
-import FloatingBlobs from './components/FloatingBlobs';
-import About from './components/About';
+'use client';
+
+import { useState } from 'react';
+import SpotifyLayout from './components/SpotifyLayout';
+import SpotifyHome from './components/SpotifyHome';
+import SpotifyProjects from './components/SpotifyProjects';
+import SpotifyAbout from './components/SpotifyAbout';
 
 export default function Home() {
+  const [currentSection, setCurrentSection] = useState('home');
+
+  const renderSection = () => {
+    switch (currentSection) {
+      case 'home':
+        return <SpotifyHome />;
+      case 'projects':
+        return <SpotifyProjects />;
+      case 'about':
+        return <SpotifyAbout />;
+      case 'experience':
+        return <div className="text-white p-8">Experience section coming soon...</div>;
+      default:
+        return <SpotifyHome />;
+    }
+  };
+
   return (
-    <main>
-      <Navbar />
-      <SpotifyNowPlaying />
-      <Hero />
-      <Projects />
-      <Contact />
-      <CursorTrail />
-      <PixelMe />
-      <About/>
-      <FloatingBlobs />
-    </main>
+    <SpotifyLayout 
+      currentSection={currentSection}
+      onSectionChange={setCurrentSection}
+    >
+      {renderSection()}
+    </SpotifyLayout>
   );
-} 
+}

@@ -24,63 +24,76 @@ export default function SpotifyNowPlaying() {
     };
 
     fetchNowPlaying();
-    const interval = setInterval(fetchNowPlaying, 10000); // Update every 10 seconds
-
+    const interval = setInterval(fetchNowPlaying, 10000);
     return () => clearInterval(interval);
   }, []);
 
-  if (!data || !data.isPlaying) {
-    return (
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="fixed bottom-6 right-6 bg-white rounded-2xl shadow-lg p-4 border border-gray-200 z-50"
-      >
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
+  return (
+    <div className="fixed bottom-0 left-0 right-0 h-24 bg-black border-t border-gray-800 flex items-center px-4 z-50">
+      
+      {/* Left - Song Info */}
+      <div className="flex items-center gap-4 flex-1 min-w-0">
+        {data?.albumImageUrl ? (
+          <div className="relative w-14 h-14 rounded overflow-hidden flex-shrink-0">
+            <Image
+              src={data.albumImageUrl}
+              alt={data.album || 'Album cover'}
+              fill
+              sizes="56px"
+              className="object-cover"
+            />
+          </div>
+        ) : (
+          <div className="w-14 h-14 bg-gray-800 rounded flex items-center justify-center">
             <span className="text-2xl">🎵</span>
           </div>
-          <div>
-            <p className="text-sm font-medium text-gray-900">Not Playing</p>
-            <p className="text-xs text-gray-500">Spotify</p>
-          </div>
-        </div>
-      </motion.div>
-    );
-  }
-
-  return (
-    <motion.a
-      href={data.songUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      whileHover={{ scale: 1.05 }}
-      className="fixed bottom-6 right-6 bg-white rounded-2xl shadow-lg p-4 border border-gray-200 z-50"
-      style={{ borderColor: '#7eb8d4' }}
-    >
-      <div className="flex items-center gap-4">
-        {data.albumImageUrl && (
-          <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
-           <Image
-  src={data.albumImageUrl}
-  alt={data.album || 'Album cover'}
-  fill
-  sizes="64px"
-  className="object-cover"
-/>
-          </div>
         )}
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-1">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-            <span className="text-xs text-gray-500">Now Playing</span>
+        
+        <div className="min-w-0 flex-1">
+          {data?.isPlaying ? (
+            <>
+              <p className="text-white text-sm font-medium truncate">{data.title}</p>
+              <p className="text-gray-400 text-xs truncate">{data.artist}</p>
+            </>
+          ) : (
+            <>
+              <p className="text-white text-sm font-medium">Not Playing</p>
+              <p className="text-gray-400 text-xs">Spotify</p>
+            </>
+          )}
+        </div>
+
+        <button className="text-gray-400 hover:text-white">
+          <span className="text-xl">♡</span>
+        </button>
+      </div>
+
+      {/* Center - Playback Controls */}
+      <div className="flex-1 flex flex-col items-center gap-2 max-w-2xl">
+        <div className="flex items-center gap-4">
+          <button className="text-gray-400 hover:text-white">⏮</button>
+          <button className="w-8 h-8 bg-white rounded-full flex items-center justify-center hover:scale-105 transition-transform">
+            <span className="text-black">⏸</span>
+          </button>
+          <button className="text-gray-400 hover:text-white">⏭</button>
+        </div>
+        
+        <div className="w-full flex items-center gap-2">
+          <span className="text-xs text-gray-400">0:00</span>
+          <div className="flex-1 h-1 bg-gray-600 rounded-full">
+            <div className="h-full w-1/3 bg-white rounded-full"></div>
           </div>
-          <p className="text-sm font-bold text-gray-900 truncate">{data.title}</p>
-          <p className="text-xs text-gray-500 truncate">{data.artist}</p>
+          <span className="text-xs text-gray-400">3:25</span>
         </div>
       </div>
-    </motion.a>
+
+      {/* Right - Volume & Controls */}
+      <div className="flex-1 flex items-center justify-end gap-2">
+        <button className="text-gray-400 hover:text-white text-sm">🔊</button>
+        <div className="w-24 h-1 bg-gray-600 rounded-full">
+          <div className="h-full w-2/3 bg-white rounded-full"></div>
+        </div>
+      </div>
+    </div>
   );
 }
