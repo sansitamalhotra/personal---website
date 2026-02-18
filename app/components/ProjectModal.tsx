@@ -206,30 +206,31 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                       ))}
                     </div>
                   </div>
-
-                  {/* Screenshots */}
-                  {project.screenshots && project.screenshots.length > 0 && (
-                    <div>
-                      <h2 className={`text-2xl font-bold mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-                        Screenshots
-                      </h2>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {project.screenshots.map((screenshot, i) => (
-                          <div
-                            key={i}
-                            className="relative aspect-video rounded-lg overflow-hidden shadow-lg"
-                          >
-                            <Image
-                              src={screenshot}
-                              alt={`${project.title} screenshot ${i + 1}`}
-                              fill
-                              className="object-cover"
-                            />
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+{/* Screenshots */}
+{project.screenshots && project.screenshots.length > 0 && (
+  <div>
+    <h2 className={`text-2xl font-bold mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+      Screenshots
+    </h2>
+    <div className="grid grid-cols-1 gap-6">
+      {project.screenshots.map((screenshot, i) => (
+        <div
+          key={i}
+          className="relative w-full rounded-lg overflow-hidden shadow-lg"
+          style={{ aspectRatio: '16/9' }}
+        >
+          <Image
+            src={screenshot}
+            alt={`${project.title} screenshot ${i + 1}`}
+            fill
+            className="object-contain bg-gray-900"
+            sizes="(max-width: 1200px) 100vw, 1200px"
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+)}
                 </div>
               </div>
             </div>

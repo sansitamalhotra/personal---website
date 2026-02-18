@@ -24,6 +24,12 @@ const projects = [
       "Processed 1000+ test verifications",
       "60-second average verification time"
     ],
+     screenshots: [
+      "/screenshots-GigIT/landing.jpg",
+      "/screenshots-GigIT/application.jpg",
+      "/screenshots-GigIT/bank-login.jpg",
+      "/screenshots-GigIT/risk-config.jpg"
+    ],  
   },
   {
     title: "SafetyNet HER",
@@ -42,6 +48,13 @@ const projects = [
       "Fake call escape feature with AI voice generation",
       "Built production-ready features in 36 hours"
     ],
+    screenshots: [
+  "/ss/landingpage.png",
+  "/ss/fakecall.png",
+  "/ss/fakecall_part2.PNG", 
+  "/ss/ai-analysis.png",
+  "/ss/volunteerscreen.png"
+],
   },
   {
     title: "Schema Sync",
@@ -59,7 +72,12 @@ const projects = [
       "Semantic similarity analysis outperformed rule-based matching",
       "Reduced manual data mapping time by 75%"
     ],
-    screenshots: ["/images/schema-sync-ss.jpg"],
+    screenshots: [
+      "/screenshots-SchemaSync/landing.jpg",
+      "/screenshots-SchemaSync/mapping.jpg",
+      "/screenshots-SchemaSync/analytic.jpg",
+      "/screenshots-SchemaSync/unified.jpg"
+    ],
   },
   {
     title: "CodeCrush",
@@ -78,6 +96,13 @@ const projects = [
       "Spaced repetition system for long-term retention",
       "Anxiety-reducing UI design focused on encouragement"
     ],
+     screenshots: [
+      "/screenshots-codecrush/home.png",
+      "/screenshots-codecrush/dashboard.png",
+      "/screenshots-codecrush/problem.png",
+      "/screenshots-codecrush/achievement.png",
+      "/screenshots-codecrush/stats.png"
+    ],
   },
   {
     title: "PillPal",
@@ -89,10 +114,26 @@ const projects = [
     color: "#89CFF0",
     cover: "/images/pillpal-cover.png",
     github: "https://github.com/sansitamalhotra/PillPal.git",
+    demo: "https://youtu.be/IA-yJRzk594"    ,
     achievements: [
       "Smart reminder system with customizable schedules",
       "Multi-medication tracking interface",
       "Refill notifications to prevent gaps in medication"
+    ],
+    screenshots: [
+    "/screenshots-PillPal/Screenshot 2026-02-15 at 10.01.58 AM.png",
+    "/screenshots-PillPal/Screenshot 2026-02-15 at 10.02.19 AM.png",
+    "/screenshots-PillPal/Screenshot 2026-02-15 at 10.04.17 AM.png",
+    "/screenshots-PillPal/Screenshot 2026-02-15 at 10.05.19 AM.png",
+    "/screenshots-PillPal/Screenshot 2026-02-15 at 10.05.42 AM.png",
+    "/screenshots-PillPal/Screenshot 2026-02-15 at 10.05.51 AM.png",
+    "/screenshots-PillPal/Screenshot 2026-02-15 at 10.06.11 AM.png",
+    "/screenshots-PillPal/Screenshot 2026-02-15 at 10.06.19 AM.png",
+    "/screenshots-PillPal/Screenshot 2026-02-15 at 10.06.43 AM.png",
+    "/screenshots-PillPal/Screenshot 2026-02-15 at 10.07.20 AM.png",
+    "/screenshots-PillPal/Screenshot 2026-02-15 at 10.07.35 AM.png",
+    "/screenshots-PillPal/Screenshot 2026-02-15 at 10.07.46 AM.png"
+      
     ],
   },
   {
@@ -218,7 +259,7 @@ export default function SpotifyProjects() {
               🏆 Hackathon Wins
             </h3>
             <p className={`text-sm ${theme === 'dark' ? 'text-white/80' : 'text-green-800'}`}>
-              GigIT, SafetyNet HER, Schema Sync
+              GigIT
             </p>
           </div>
           
