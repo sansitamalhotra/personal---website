@@ -14,16 +14,16 @@ export default function EqualizerBackground() {
   if (!mounted) return null;
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-20">
-      <div className="absolute bottom-0 left-0 right-0 flex items-end justify-center gap-1 h-64">
-        {[...Array(50)].map((_, i) => (
+    <div className="fixed bottom-0 left-0 right-0 pointer-events-none z-0 overflow-hidden opacity-30">
+      <div className="flex items-end justify-center gap-3 h-80 px-8">
+        {[...Array(30)].map((_, i) => (
           <div
             key={i}
-            className={`w-2 rounded-t-sm ${
-              theme === 'dark' ? 'bg-green-400' : 'bg-blue-500'
+            className={`flex-1 rounded-t ${
+              theme === 'dark' ? 'bg-green-500' : 'bg-blue-400'
             }`}
             style={{
-              height: '20%',
+              height: '30%',
               animation: `equalizerPulse ${0.5 + Math.random() * 1}s ease-in-out infinite`,
               animationDelay: `${Math.random() * 0.5}s`,
             }}
