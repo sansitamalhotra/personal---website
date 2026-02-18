@@ -82,37 +82,37 @@ export default function SpotifyHome() {
           </button>
         </motion.div>
 
-        {/* Quick Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
-          className="grid grid-cols-4 gap-4 mb-12"
-        >
-          {[
-            { emoji: '🏆', num: '3', label: 'Hackathon Wins' },
-            { emoji: '⚡', num: '250+', label: 'Daily Users' },
-            { emoji: '💃', num: '10+', label: 'Dance Performances' },
-            { emoji: '💼', num: '3+', label: 'Years Coding' },
-          ].map((stat, i) => (
-            <div
-              key={i}
-              className={`rounded-lg p-4 transition-colors ${
-                theme === 'dark'
-                  ? 'bg-white/5 backdrop-blur-sm hover:bg-white/10'
-                  : 'bg-white shadow-md hover:shadow-lg'
-              }`}
-            >
-              <p className="text-3xl font-bold mb-1">{stat.emoji}</p>
-              <p className={`text-2xl font-bold mb-1 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-                {stat.num}
-              </p>
-              <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-                {stat.label}
-              </p>
-            </div>
-          ))}
-        </motion.div>
+       {/* Quick Stats */}
+<motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ delay: 0.5, duration: 0.8 }}
+  className="grid grid-cols-4 gap-4 mb-12"
+>
+  {[
+    { emoji: '🏆', num: '3', label: 'Hackathon Wins' },
+    { emoji: '⚡', num: '250+', label: 'Daily Users' },
+    { emoji: '💃', num: '10+', label: 'Dance Performances' },
+    { emoji: '💼', num: '3+', label: 'Years Coding' },
+  ].map((stat, i) => (
+    <div
+      key={i}
+      className={`rounded-lg p-4 transition-all backdrop-blur-md border ${
+  theme === 'dark'
+    ? 'bg-white/5 border-white/10 hover:bg-white/10'
+    : 'bg-blue-50/70 border-blue-100/40 hover:bg-blue-100/80 shadow-lg'
+}`}
+    >
+      <p className="text-3xl font-bold mb-1">{stat.emoji}</p>
+      <p className={`text-2xl font-bold mb-1 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+        {stat.num}
+      </p>
+      <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+        {stat.label}
+      </p>
+    </div>
+  ))}
+</motion.div>
 
         {/* Popular Section */}
         <div className="mb-8">

@@ -147,16 +147,16 @@ export default function SpotifyAbout() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {techStack.map((tech, index) => (
               <motion.div
-                key={tech.name}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.9 + index * 0.1 }}
-                className={`rounded-lg p-4 transition-colors ${
-                  theme === 'dark'
-                    ? 'bg-white/5 backdrop-blur-sm hover:bg-white/10'
-                    : 'bg-white shadow-md hover:shadow-lg'
-                }`}
-              >
+  key={tech.name}
+  initial={{ opacity: 0, x: -20 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ delay: 0.9 + index * 0.1 }}
+ className={`rounded-lg p-4 transition-all backdrop-blur-xl border ${
+  theme === 'dark'
+    ? 'bg-white/10 border-white/20 hover:bg-white/20 shadow-xl'
+    : 'bg-blue-50/80 border-blue-100/60 hover:bg-blue-100/90 shadow-xl'
+}`}
+>
                 <div className="flex justify-between items-center mb-2">
                   <span className={`font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                     {tech.name}
@@ -194,11 +194,11 @@ export default function SpotifyAbout() {
               <motion.div
                 key={index}
                 whileHover={{ scale: 1.05, y: -5 }}
-                className={`rounded-lg p-6 text-center border transition-colors ${
-                  theme === 'dark'
-                    ? 'bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700 hover:border-green-500'
-                    : 'bg-white shadow-md hover:shadow-lg border-gray-200 hover:border-blue-400'
-                }`}
+                className={`rounded-lg p-6 text-center border transition-colors backdrop-blur-sm ${
+  theme === 'dark'
+    ? 'bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700 hover:border-green-500'
+    : 'bg-blue-50/60 border-blue-100 hover:border-blue-400 shadow-lg'
+}`}
               >
                 <div className="text-4xl mb-3">{item.icon}</div>
                 <h3 className={`font-semibold mb-1 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>

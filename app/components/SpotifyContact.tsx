@@ -81,18 +81,18 @@ export default function SpotifyContact() {
           className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16"
         >
           {contactMethods.map((method, index) => (
-            <motion.a
-              key={index}
-              href={method.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.05, y: -5 }}
-              className={`p-6 rounded-xl transition-all cursor-pointer border ${
-                theme === 'dark'
-                  ? 'bg-gray-800/50 hover:bg-gray-800 border-gray-700'
-                  : 'bg-white hover:shadow-xl border-gray-200'
-              }`}
-            >
+  <motion.a
+    key={index}
+    href={method.link}
+    target="_blank"
+    rel="noopener noreferrer"
+    whileHover={{ scale: 1.05, y: -5 }}
+    className={`p-6 rounded-xl transition-all cursor-pointer backdrop-blur-sm border ${
+      theme === 'dark'
+        ? 'bg-gray-800/30 hover:bg-gray-800/50 border-gray-700/50'
+        : 'bg-white/60 hover:bg-white/80 border-white/40 shadow-xl'
+    }`}
+  >
               <div className="text-5xl mb-4">{method.icon}</div>
               <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                 {method.label}
@@ -125,11 +125,11 @@ export default function SpotifyContact() {
               </p>
             </div>
 
-            <div className={`p-6 rounded-lg ${
-              theme === 'dark'
-                ? 'bg-gradient-to-br from-green-900/20 to-blue-900/20 border border-green-500/20'
-                : 'bg-gradient-to-br from-green-50 to-blue-50 border border-green-200'
-            }`}>
+            <div className={`rounded-lg p-4 transition-all backdrop-blur-md border ${
+  theme === 'dark'
+    ? 'bg-white/5 border-white/10 hover:bg-white/10'
+    : 'bg-white/60 border-white/40 hover:bg-white/80 shadow-lg'
+}`}>
               <h3 className={`text-xl font-bold mb-3 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                 What I'm looking for:
               </h3>

@@ -204,25 +204,27 @@ export default function SpotifyProjects() {
                   : 'bg-white hover:bg-blue-50 shadow-md hover:shadow-lg'
               }`}
             >
-              {/* Album Cover */}
-              <div className="w-full aspect-square rounded-lg mb-4 shadow-xl overflow-hidden relative">
-                {project.cover ? (
-                  <Image
-                    src={project.cover}
-                    alt={project.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover"
-                  />
-                ) : (
-                  <div 
-                    className="w-full h-full flex items-center justify-center text-6xl"
-                    style={{ backgroundColor: project.color }}
-                  >
-                    {project.title === "Bharatnatyam" ? "💃" : "💿"}
-                  </div>
-                )}
-              </div>
+             {/* Album Cover */}
+<div className="w-full aspect-square rounded-lg mb-4 shadow-xl overflow-hidden relative">
+  {project.cover ? (
+    <div className="relative w-full h-full group/album">
+      <Image
+        src={project.cover}
+        alt={project.title}
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        className="object-cover transition-all duration-500 group-hover/album:scale-105 group-hover/album:rotate-3"
+      />
+    </div>
+  ) : (
+    <div 
+      className="w-full h-full flex items-center justify-center text-6xl"
+      style={{ backgroundColor: project.color }}
+    >
+      {project.title === "Bharatnatyam" ? "💃" : "💿"}
+    </div>
+  )}
+</div>
 
               {/* Album Info */}
               <h3 className={`font-semibold mb-1 truncate ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
