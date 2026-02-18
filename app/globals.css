@@ -46,3 +46,11 @@ h1, h2, h3, h4, h5, h6 {
 .animate-spin-slow {
   animation: spin-slow 3s linear infinite;
 }
+@keyframes equalizerPulse {
+  0%, 100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(3);
+  }
+}

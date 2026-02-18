@@ -1,9 +1,10 @@
 'use client';
 
-import { ReactNode, useState } from 'react';
+import { ReactNode } from 'react';
 import SpotifySidebar from './SpotifySidebar';
 import SpotifyNowPlaying from './SpotifyNowPlaying';
 import { useTheme } from '../context/ThemeContext';
+import EqualizerBackground from './EqualizerBackground';
 
 interface SpotifyLayoutProps {
   children: ReactNode;
@@ -20,18 +21,21 @@ export default function SpotifyLayout({ children, onSectionChange, currentSectio
     }
   };
 
-  // Theme colors
   const bgColor = theme === 'dark' ? 'bg-black' : 'bg-gradient-to-br from-blue-50 to-white';
   const navBg = theme === 'dark' ? 'bg-gradient-to-b from-black to-transparent' : 'bg-gradient-to-b from-blue-50/80 to-transparent';
 
   return (
-    <div className={`${bgColor} min-h-screen transition-colors duration-300`}>
+    <div className={`${bgColor} min-h-screen transition-colors duration-300 relative`}>
+      {/* Equalizer Background */}
+      <EqualizerBackground />
+      
       {/* Sidebar */}
       <SpotifySidebar 
         activeSection={currentSection}
         onSectionChange={handleSectionChange}
       />
 
+      {/* Rest of your code stays the same... */}
       {/* Main Content Area */}
       <div className="ml-64 pb-24">
         {/* Top Nav Bar */}

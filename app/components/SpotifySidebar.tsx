@@ -16,7 +16,6 @@ export default function SpotifySidebar({ activeSection, onSectionChange }: Spoti
     { id: 'projects', icon: '📚', label: 'Projects' },
     { id: 'about', icon: '👤', label: 'About' },
     { id: 'experience', icon: '💼', label: 'Experience' },
-    { id: 'contact', icon: '📬', label: 'Contact' },
   ];
 
   const playlists = [
