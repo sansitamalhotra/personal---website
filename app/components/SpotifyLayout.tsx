@@ -22,9 +22,24 @@ export default function SpotifyLayout({ children, onSectionChange, currentSectio
     }
   };
 
- const bgColor = theme === 'dark' 
-  ? 'bg-gradient-to-br from-black via-gray-900 to-black animated-gradient' 
-  : 'bg-gradient-to-br from-blue-50 via-white to-blue-100 animated-gradient';
+  const sections = ['home', 'projects', 'about', 'experience', 'contact'];
+  const currentIndex = sections.indexOf(currentSection);
+
+  const goBack = () => {
+    if (currentIndex > 0) {
+      onSectionChange?.(sections[currentIndex - 1]);
+    }
+  };
+
+  const goForward = () => {
+    if (currentIndex < sections.length - 1) {
+      onSectionChange?.(sections[currentIndex + 1]);
+    }
+  };
+
+  const bgColor = theme === 'dark' 
+    ? 'bg-gradient-to-br from-black via-gray-900 to-black animated-gradient' 
+    : 'bg-gradient-to-br from-blue-50 via-white to-blue-100 animated-gradient';
   const navBg = theme === 'dark' ? 'bg-gradient-to-b from-black to-transparent' : 'bg-gradient-to-b from-blue-50/80 to-transparent';
 
   return (
@@ -39,16 +54,35 @@ export default function SpotifyLayout({ children, onSectionChange, currentSectio
         onSectionChange={handleSectionChange}
       />
 
-      {/* Rest of your code stays the same... */}
       {/* Main Content Area */}
       <div className="ml-64 pb-24">
         {/* Top Nav Bar */}
         <div className={`fixed top-0 left-64 right-0 h-16 ${navBg} z-20 flex items-center px-6 justify-between`}>
           <div className="flex items-center gap-4 flex-1">
-            <button className={`w-8 h-8 rounded-full ${theme === 'dark' ? 'bg-black/50' : 'bg-white/80'} flex items-center justify-center ${theme === 'dark' ? 'text-white' : 'text-gray-800'} hover:${theme === 'dark' ? 'bg-black/70' : 'bg-white'}`}>
+            <button 
+              onClick={goBack}
+              disabled={currentIndex === 0}
+              className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
+                theme === 'dark' ? 'bg-black/50 text-white' : 'bg-white/80 text-gray-800'
+              } ${
+                currentIndex === 0 
+                  ? 'opacity-30 cursor-not-allowed' 
+                  : theme === 'dark' ? 'hover:bg-black/70' : 'hover:bg-white'
+              }`}
+            >
               ←
             </button>
-            <button className={`w-8 h-8 rounded-full ${theme === 'dark' ? 'bg-black/50' : 'bg-white/80'} flex items-center justify-center ${theme === 'dark' ? 'text-white' : 'text-gray-800'} hover:${theme === 'dark' ? 'bg-black/70' : 'bg-white'}`}>
+            <button 
+              onClick={goForward}
+              disabled={currentIndex === sections.length - 1}
+              className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
+                theme === 'dark' ? 'bg-black/50 text-white' : 'bg-white/80 text-gray-800'
+              } ${
+                currentIndex === sections.length - 1
+                  ? 'opacity-30 cursor-not-allowed'
+                  : theme === 'dark' ? 'hover:bg-black/70' : 'hover:bg-white'
+              }`}
+            >
               →
             </button>
           

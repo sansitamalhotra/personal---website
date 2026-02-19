@@ -163,49 +163,47 @@ export default function SpotifyProjects() {
 
   // Auto-scroll animation
   useEffect(() => {
-    const scrollContainer = scrollRef.current;
-    if (!scrollContainer) return;
+  const scrollContainer = scrollRef.current;
+  if (!scrollContainer) return;
 
-    let scrollInterval: NodeJS.Timeout;
-    let isUserScrolling = false;
+  let animationFrameId: number;
+  let isUserScrolling = false;
+  let lastScrollLeft = 0;
 
-    const startAutoScroll = () => {
-      scrollInterval = setInterval(() => {
-        if (!isUserScrolling && scrollContainer) {
-          scrollContainer.scrollLeft += 1;
-          
-          // Reset to start when reaching the end for infinite loop
-          if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth / 2) {
-            scrollContainer.scrollLeft = 0;
-          }
-        }
-      }, 10); // Adjust speed here (lower = faster)
-    };
-
-    // Pause auto-scroll when user interacts
-    const handleUserScroll = () => {
-      isUserScrolling = true;
-      clearInterval(scrollInterval);
+  const smoothScroll = () => {
+    if (!isUserScrolling && scrollContainer) {
+      scrollContainer.scrollLeft += 0.5; // Constant smooth speed
       
-      setTimeout(() => {
-        isUserScrolling = false;
-        startAutoScroll();
-      }, 2000); // Resume after 2 seconds of no interaction
-    };
+      // Reset to start when reaching the end for infinite loop
+      if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth / 2) {
+        scrollContainer.scrollLeft = 0;
+      }
+    }
+    animationFrameId = requestAnimationFrame(smoothScroll);
+  };
 
-    scrollContainer.addEventListener('wheel', handleUserScroll);
-    scrollContainer.addEventListener('touchstart', handleUserScroll);
-    scrollContainer.addEventListener('mousedown', handleUserScroll);
+  // Pause auto-scroll when user interacts
+  const handleUserScroll = () => {
+    isUserScrolling = true;
+    
+    setTimeout(() => {
+      isUserScrolling = false;
+    }, 2000); // Resume after 2 seconds
+  };
 
-    startAutoScroll();
+  scrollContainer.addEventListener('wheel', handleUserScroll);
+  scrollContainer.addEventListener('touchstart', handleUserScroll);
+  scrollContainer.addEventListener('mousedown', handleUserScroll);
 
-    return () => {
-      clearInterval(scrollInterval);
-      scrollContainer.removeEventListener('wheel', handleUserScroll);
-      scrollContainer.removeEventListener('touchstart', handleUserScroll);
-      scrollContainer.removeEventListener('mousedown', handleUserScroll);
-    };
-  }, []);
+  animationFrameId = requestAnimationFrame(smoothScroll);
+
+  return () => {
+    cancelAnimationFrame(animationFrameId);
+    scrollContainer.removeEventListener('wheel', handleUserScroll);
+    scrollContainer.removeEventListener('touchstart', handleUserScroll);
+    scrollContainer.removeEventListener('mousedown', handleUserScroll);
+  };
+}, []);
 
   const handleProjectClick = (project: typeof projects[0]) => {
     setSelectedProject(project);

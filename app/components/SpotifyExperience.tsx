@@ -6,7 +6,37 @@ import { useTheme } from '../context/ThemeContext';
 export default function SpotifyExperience() {
   const { theme } = useTheme();
 
-  const experiences = [
+ const experiences = [
+  {
+    title: 'Infrastructure Developer',
+    company: 'UTMIST (UofT Machine Intelligence Student Team)',
+    period: 'February 2026 - Present',
+    location: 'Toronto, ON',
+    description: 'Building infrastructure software and internal tools for ML research team',
+    achievements: [
+      'Developing web applications and interfaces for compute platform',
+      'Building event logistics systems and application portals',
+      'Managing infrastructure for website and compute clusters',
+      'Working with React, Node.js, FastAPI, and database systems',
+      'Supporting ML research projects with scalable computing resources'
+    ],
+    color: '#667eea'
+  },
+  {
+    title: 'DevOps Engineer Co-op (Incoming)',
+    company: 'PC Financial',
+    period: 'May 2026 - August 2026',
+    location: 'Toronto, ON',
+    description: 'Incoming DevOps co-op at Canada\'s most digital-forward bank focusing on multi-cloud infrastructure',
+    achievements: [
+      'Starting May 2026 - 4 month co-op term',
+      'Multi-cloud infrastructure (Azure & GCP)',
+      'CI/CD pipeline development and automation',
+      'Financial services infrastructure in heavily regulated environment',
+      'Working with containerization and orchestration tools'
+    ],
+    color: '#ff6b00'
+  },
   {
     title: 'Full Stack Developer',
     company: 'S M Software Solutions',
@@ -19,6 +49,7 @@ export default function SpotifyExperience() {
       'Developed FastAPI-based backend systems with RESTful architecture',
       'Built full-stack web applications using React, Next.js, and TypeScript',
       'Implemented authentication, database management, and API integrations',
+      'Achieved 35% performance improvement through optimization',
       'Collaborated with clients to deliver custom software solutions'
     ],
     color: '#1DB954',
@@ -31,7 +62,6 @@ export default function SpotifyExperience() {
     ]
   }
 ];
-
   return (
     <div className={`px-8 py-12 min-h-screen transition-colors duration-300 ${
       theme === 'dark' 

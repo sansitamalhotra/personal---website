@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 
@@ -16,23 +17,47 @@ export default function SpotifySidebar({ activeSection, onSectionChange }: Spoti
     { id: 'projects', icon: '📚', label: 'Projects' },
     { id: 'about', icon: '👤', label: 'About' },
     { id: 'experience', icon: '💼', label: 'Experience' },
+    { id: 'contact', icon: '✉️', label: 'Contact' },
   ];
 
   const playlists = [
-    { name: 'Hackathon Wins', icon: '🏆', color: '#1DB954', section: 'projects' },
-    { name: 'Full Stack Projects', icon: '⚡', color: '#ff6b9d', section: 'projects' },
-    { name: 'AI/ML Work', icon: '🤖', color: '#667eea', section: 'projects' },
-    { name: 'Dance Performances', icon: '💃', color: '#ffd93d', section: 'projects' },
-  ];
-
+  { 
+    name: 'reading & binging', 
+    icon: '📚', 
+    image: '/images/reading.png',
+    section: 'books'
+  },
+  { 
+    name: '2026 goals', 
+    icon: '🎯', 
+    image: '/images/goal.png',
+    section: 'goals'
+  },
+  { 
+    name: 'build backlog', 
+    icon: '💡', 
+    image: '/images/ideas.png',
+    section: 'ideas'
+  },
+  { 
+    name: 'current vibe', 
+    icon: '🎵', 
+    image: '/images/current.png',
+    section: 'music'
+  },
+];
   return (
-    <div className={`fixed left-0 top-0 h-screen w-64 ${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-gray-800 border-r border-gray-200'} flex flex-col transition-colors duration-300`}>
+    <div className={`fixed left-0 top-0 h-screen w-64 ${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-gray-800 border-r border-gray-200'} flex flex-col transition-colors duration-300 z-30`}>
       
       {/* Logo */}
       <div className="p-6">
-       <h1 className="text-2xl font-bold" style={{ color: theme === 'dark' ? '#1DB954' : '#60a5fa' }}>
-  sansa
-</h1>
+        <button 
+          onClick={() => onSectionChange('home')}
+          className="text-2xl font-bold transition-colors hover:opacity-80"
+          style={{ color: theme === 'dark' ? '#1DB954' : '#60a5fa' }}
+        >
+          sansa
+        </button>
       </div>
 
       {/* Main Nav */}
@@ -69,12 +94,15 @@ export default function SpotifySidebar({ activeSection, onSectionChange }: Spoti
               whileHover={{ backgroundColor: theme === 'dark' ? '#282828' : '#f3f4f6' }}
               className="flex items-center gap-3 px-3 py-2 rounded-md cursor-pointer"
             >
-              <div 
-                className="w-12 h-12 rounded flex items-center justify-center text-xl"
-                style={{ backgroundColor: playlist.color }}
-              >
-                {playlist.icon}
-              </div>
+              <div className="w-12 h-12 rounded overflow-hidden flex-shrink-0">
+  <Image
+    src={playlist.image}
+    alt={playlist.name}
+    width={48}
+    height={48}
+    className="object-cover"
+  />
+</div>
               <div className="flex-1 min-w-0">
                 <p className={`${theme === 'dark' ? 'text-white' : 'text-gray-800'} text-sm font-medium truncate`}>{playlist.name}</p>
                 <p className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'} text-xs`}>Playlist</p>
