@@ -161,11 +161,11 @@ export default function SpotifyHome({ onSectionChange }: SpotifyHomeProps) {
               Sansita Malhotra
             </h1>
             <div className={`flex items-center gap-2 text-sm ${theme === 'dark' ? 'text-white' : 'text-gray-700'}`}>
-              <span className="font-semibold">6 projects</span>
-              <span>•</span>
-              <span>Computer Engineering @ UofT</span>
+              <span className="font-semibold">Computer Engineering @ UofT</span>
               <span>•</span>
               <span>Second Year</span>
+              <span>•</span>
+              <span>Toronto ⁶𓅓</span>
             </div>
           </div>
         </motion.div>
@@ -209,7 +209,7 @@ export default function SpotifyHome({ onSectionChange }: SpotifyHomeProps) {
           className="grid grid-cols-4 gap-4 mb-12"
         >
           {[
-            { emoji: '🏆', num: '3', label: 'Hackathon Wins' },
+            { emoji: '🏆', num: '2', label: 'Hackathon Wins' },
             { emoji: '⚡', num: '250+', label: 'Daily Users' },
             { emoji: '💃', num: '10+', label: 'Dance Performances' },
             { emoji: '💼', num: '3+', label: 'Years Coding' },

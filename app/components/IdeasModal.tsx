@@ -11,6 +11,7 @@ interface IdeasModalProps {
 export default function IdeasModal({ isOpen, onClose }: IdeasModalProps) {
   const { theme } = useTheme();
   const [activeTab, setActiveTab] = useState<'ideas' | 'submit'>('ideas');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   if (!isOpen) return null;
 
@@ -58,6 +59,39 @@ export default function IdeasModal({ isOpen, onClose }: IdeasModalProps) {
       vibe: 'Job search tool'
     }
   ];
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      title: formData.get('title'),
+      description: formData.get('description'),
+      techStack: formData.get('techStack'),
+      submittedBy: formData.get('name'),
+    };
+
+    try {
+      const response = await fetch('/api/ideas', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        alert('Thanks for the idea! 💡');
+        e.currentTarget.reset();
+      } else {
+        alert('Failed to submit. Try again!');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Failed to submit. Try again!');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
@@ -169,13 +203,15 @@ export default function IdeasModal({ isOpen, onClose }: IdeasModalProps) {
               <p className={`mb-6 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                 Send me a project idea you think I should build! 💡
               </p>
-              <form className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <label className={`block text-sm font-semibold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                     Project Title
                   </label>
                   <input
                     type="text"
+                    name="title"
+                    required
                     placeholder="What should I build?"
                     className={`w-full px-4 py-3 rounded-lg border transition-colors ${
                       theme === 'dark'
@@ -190,6 +226,8 @@ export default function IdeasModal({ isOpen, onClose }: IdeasModalProps) {
                     Description
                   </label>
                   <textarea
+                    name="description"
+                    required
                     rows={4}
                     placeholder="What does it do? Why would it be cool?"
                     className={`w-full px-4 py-3 rounded-lg border transition-colors ${
@@ -206,6 +244,7 @@ export default function IdeasModal({ isOpen, onClose }: IdeasModalProps) {
                   </label>
                   <input
                     type="text"
+                    name="techStack"
                     placeholder="React, Python, etc."
                     className={`w-full px-4 py-3 rounded-lg border transition-colors ${
                       theme === 'dark'
@@ -221,6 +260,7 @@ export default function IdeasModal({ isOpen, onClose }: IdeasModalProps) {
                   </label>
                   <input
                     type="text"
+                    name="name"
                     placeholder="So I can credit you!"
                     className={`w-full px-4 py-3 rounded-lg border transition-colors ${
                       theme === 'dark'
@@ -232,9 +272,10 @@ export default function IdeasModal({ isOpen, onClose }: IdeasModalProps) {
 
                 <button
                   type="submit"
-                  className="w-full py-3 bg-green-500 text-black font-bold rounded-lg hover:bg-green-600 transition-colors"
+                  disabled={isSubmitting}
+                  className="w-full py-3 bg-green-500 text-black font-bold rounded-lg hover:bg-green-600 transition-colors disabled:opacity-50"
                 >
-                  Send Idea
+                  {isSubmitting ? 'Sending...' : 'Send Idea'}
                 </button>
               </form>
             </div>

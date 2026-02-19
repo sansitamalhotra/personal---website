@@ -59,50 +59,71 @@ export default function BooksModal({ isOpen, onClose }: BooksModalProps) {
     }
   ];
 
-  const shows = [
-    {
-      title: "Fleabag",
-      type: "Comedy/Drama",
-      seasons: "2 seasons (12 episodes)",
-      vibe: "Dark comedy, fourth wall breaking, emotionally devastating",
-      why: "Perfect for eating - hilarious and deep"
-    },
-    {
-      title: "The Bear",
-      type: "Drama",
-      seasons: "3 seasons",
-      vibe: "Chaotic kitchen energy, anxiety-inducing, beautiful",
-      why: "Fast-paced, compelling, about food ironically"
-    },
-    {
-      title: "Normal People",
-      type: "Romance/Drama",
-      seasons: "1 season (12 episodes)",
-      vibe: "Irish, intimate, emotionally complex",
-      why: "Beautiful cinematography, will ruin you"
-    },
-    {
-      title: "Extraordinary Attorney Woo",
-      type: "K-Drama",
-      seasons: "1 season (16 episodes)",
-      vibe: "Wholesome, autistic lawyer, heartwarming",
-      why: "Feel-good, cute romance, legal cases"
-    },
-    {
-      title: "Severance",
-      type: "Sci-Fi/Thriller",
-      seasons: "2 seasons",
-      vibe: "Mind-bending, corporate dystopia, slow burn",
-      why: "Will make you question everything"
-    },
-    {
-      title: "Beef",
-      type: "Dark Comedy/Thriller",
-      seasons: "1 season (10 episodes)",
-      vibe: "Road rage saga, Asian American, intense",
-      why: "Binge-worthy, unexpected, powerful performances"
-    }
-  ];
+ const shows = [
+  {
+    title: "Modern Family",
+    type: "Comedy",
+    seasons: "11 seasons (250 episodes)",
+    vibe: "Mockumentary, feel-good, family chaos",
+    why: "Comfort show - always funny, easy to eat to"
+  },
+  {
+    title: "Brooklyn Nine-Nine",
+    type: "Comedy",
+    seasons: "8 seasons (153 episodes)",
+    vibe: "Wholesome, detective squad humor, found family",
+    why: "Perfect meal companion - light and hilarious"
+  },
+  {
+    title: "Grey's Anatomy",
+    type: "Medical Drama",
+    seasons: "21 seasons (ongoing)",
+    vibe: "Emotional rollercoaster, medical cases, romance",
+    why: "Endless content, dramatic but binge-able"
+  },
+  {
+    title: "Anne with an E",
+    type: "Period Drama",
+    seasons: "3 seasons (27 episodes)",
+    vibe: "Coming-of-age, beautiful cinematography, heartwarming",
+    why: "Cozy vibes, emotional, stunning visuals"
+  },
+  {
+    title: "How to Lose a Guy in 10 Days",
+    type: "Rom-Com Movie",
+    seasons: "Movie (2003)",
+    vibe: "Bet gone wrong, enemies to lovers, hilarious",
+    why: "Kate Hudson + Matthew McConaughey iconic chemistry"
+  },
+  {
+    title: "Yeh Jawaani Hai Deewani",
+    type: "Bollywood",
+    seasons: "Movie",
+    vibe: "Travel, friendship, romance, life goals",
+    why: "Ultimate comfort Bollywood movie - rewatchable"
+  },
+  {
+    title: "Kabhi Khushi Kabhie Gham",
+    type: "Bollywood",
+    seasons: "Movie",
+    vibe: "Family drama, iconic songs, emotional",
+    why: "Classic Bollywood - perfect for nostalgic eating"
+  },
+  {
+    title: "10 Things I Hate About You",
+    type: "Rom-Com Movie",
+    seasons: "Movie (1999)",
+    vibe: "High school Shakespeare retelling, 90s classic",
+    why: "Heath Ledger singing on the bleachers - perfection"
+  },
+  {
+    title: "Schitt's Creek",
+    type: "Comedy",
+    seasons: "6 seasons (80 episodes)",
+    vibe: "Wealthy family loses everything, wholesome humor",
+    why: "Hilarious character growth, feel-good ending"
+  }
+];
 
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">

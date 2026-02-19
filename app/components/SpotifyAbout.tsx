@@ -22,7 +22,6 @@ export default function SpotifyAbout() {
   const equipment = [
     { icon: '💻', label: 'MacBook Air M1', detail: 'Primary workstation' },
     { icon: '⚡', label: 'VS Code', detail: 'Code editor of choice' },
-    { icon: '🎨', label: 'Figma', detail: 'Design & prototyping' },
     { icon: '🔧', label: 'GitHub', detail: 'Version control' },
   ];
 
@@ -127,8 +126,8 @@ export default function SpotifyAbout() {
             </p>
             <p>
               When I'm not debugging at 2am, I'm either performing Bharatnatyam (classical Indian dance), 
-              hitting the gym, reading Percy Jackson for the millionth time, or talking my friends' ears 
-              off about whatever new tech I'm learning. I'm a people person who happens to love code—not 
+              hitting the gym, reading, or talking my friends' ears off about whatever. 
+              I'm a people person who happens to love code, not 
               the other way around.
             </p>
           </div>

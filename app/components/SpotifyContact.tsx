@@ -11,18 +11,32 @@ export default function SpotifyContact() {
     email: '',
     message: ''
   });
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('sending');
     
-    // Simulate sending
-    setTimeout(() => {
-      setStatus('sent');
-      setFormData({ name: '', email: '', message: '' });
-      setTimeout(() => setStatus(''), 3000);
-    }, 1000);
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setStatus('sent');
+        setFormData({ name: '', email: '', message: '' });
+        setTimeout(() => setStatus('idle'), 3000);
+      } else {
+        setStatus('error');
+        setTimeout(() => setStatus('idle'), 3000);
+      }
+    } catch (error) {
+      console.error('Error sending message:', error);
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 3000);
+    }
   };
 
   const contactMethods = [
@@ -81,18 +95,18 @@ export default function SpotifyContact() {
           className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16"
         >
           {contactMethods.map((method, index) => (
-  <motion.a
-    key={index}
-    href={method.link}
-    target="_blank"
-    rel="noopener noreferrer"
-    whileHover={{ scale: 1.05, y: -5 }}
-    className={`p-6 rounded-xl transition-all cursor-pointer backdrop-blur-sm border ${
-      theme === 'dark'
-        ? 'bg-gray-800/30 hover:bg-gray-800/50 border-gray-700/50'
-        : 'bg-white/60 hover:bg-white/80 border-white/40 shadow-xl'
-    }`}
-  >
+            <motion.a
+              key={index}
+              href={method.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.05, y: -5 }}
+              className={`p-6 rounded-xl transition-all cursor-pointer backdrop-blur-sm border ${
+                theme === 'dark'
+                  ? 'bg-gray-800/30 hover:bg-gray-800/50 border-gray-700/50'
+                  : 'bg-white/60 hover:bg-white/80 border-white/40 shadow-xl'
+              }`}
+            >
               <div className="text-5xl mb-4">{method.icon}</div>
               <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                 {method.label}
@@ -104,7 +118,7 @@ export default function SpotifyContact() {
           ))}
         </motion.div>
 
-        {/* Form Section - Like a Spotify Playlist */}
+        {/* Form Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           
           {/* Left - Info */}
@@ -126,10 +140,10 @@ export default function SpotifyContact() {
             </div>
 
             <div className={`rounded-lg p-4 transition-all backdrop-blur-md border ${
-  theme === 'dark'
-    ? 'bg-white/5 border-white/10 hover:bg-white/10'
-    : 'bg-white/60 border-white/40 hover:bg-white/80 shadow-lg'
-}`}>
+              theme === 'dark'
+                ? 'bg-white/5 border-white/10 hover:bg-white/10'
+                : 'bg-white/60 border-white/40 hover:bg-white/80 shadow-lg'
+            }`}>
               <h3 className={`text-xl font-bold mb-3 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                 What I'm looking for:
               </h3>
@@ -193,6 +207,7 @@ export default function SpotifyContact() {
                 </label>
                 <input
                   type="text"
+                  name="name"
                   required
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
@@ -213,6 +228,7 @@ export default function SpotifyContact() {
                 </label>
                 <input
                   type="email"
+                  name="email"
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({...formData, email: e.target.value})}
@@ -232,6 +248,7 @@ export default function SpotifyContact() {
                   Message
                 </label>
                 <textarea
+                  name="message"
                   required
                   value={formData.message}
                   onChange={(e) => setFormData({...formData, message: e.target.value})}
@@ -254,7 +271,7 @@ export default function SpotifyContact() {
                     : 'bg-green-500 hover:bg-green-600 hover:scale-105'
                 } disabled:opacity-50 shadow-lg`}
               >
-                {status === 'sending' ? 'Sending...' : status === 'sent' ? 'Sent! ✓' : 'Send Message'}
+                {status === 'sending' ? 'Sending...' : status === 'sent' ? 'Sent! ✓' : status === 'error' ? 'Error!' : 'Send Message'}
               </button>
 
               {status === 'sent' && (
@@ -264,6 +281,16 @@ export default function SpotifyContact() {
                   className="text-center text-green-500 font-semibold"
                 >
                   Message sent! I'll get back to you soon 🎉
+                </motion.p>
+              )}
+
+              {status === 'error' && (
+                <motion.p
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-center text-red-500 font-semibold"
+                >
+                  Failed to send. Try emailing me directly!
                 </motion.p>
               )}
             </div>

@@ -172,7 +172,7 @@ export default function SpotifyProjects() {
 
   const smoothScroll = () => {
     if (!isUserScrolling && scrollContainer) {
-      scrollContainer.scrollLeft += 0.5; // Constant smooth speed
+      scrollContainer.scrollLeft += 0.8; // Constant smooth speed
       
       // Reset to start when reaching the end for infinite loop
       if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth / 2) {
